@@ -14,6 +14,7 @@ export const authOption: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
+      // id: 'credentials',
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: 'Credentials',
       // `credentials` is used to generate a form on the sign in page.
@@ -26,7 +27,12 @@ export const authOption: NextAuthOptions = {
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        const user = { id: '1', name: 'J Smith', email: 'jsmith@example.com' };
+        const user = {
+          id: '1',
+          name: 'J Smith',
+          email: 'jsmith@example.com',
+          role: 'User',
+        };
 
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
@@ -42,6 +48,15 @@ export const authOption: NextAuthOptions = {
   ],
   session: {
     strategy: 'jwt',
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      session.user = token;
+      return session;
+    },
   },
 };
 
