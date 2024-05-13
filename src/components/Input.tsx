@@ -28,7 +28,7 @@ const Input: React.FC<InputProps> = ({
         <span className='absolute text-neutral-700 top-5 left-2'> $ </span>
       )}
       <input
-        id='id'
+        id={id}
         disabled={disabled}
         {...register(id, { required })}
         placeholder=''
