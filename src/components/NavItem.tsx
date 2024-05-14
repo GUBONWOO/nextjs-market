@@ -9,8 +9,6 @@ interface NavItemProps {
 }
 
 const NavItem = ({ mobile, currentUser }: NavItemProps) => {
-  const { data: session } = useSession();
-
   return (
     <ul
       className={`text-md justify-center flex gap-4 w-full items-center ${
